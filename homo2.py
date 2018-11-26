@@ -1,18 +1,23 @@
 import cv2
 import numpy as np
 
+#Image to overlay on the background
 frame= cv2.imread('sample_image.png',1)
 # background= cv2.imread('background.png',cv2.IMREAD_UNCHANGE)
+#Background image
 background= cv2.imread('museum.jpg',1)
 # background   = cv2.resize(background, (0,0), fx=0.3, fy=0.3) 
 
+#Scale the document image, It should be changed to get better quality of image
 frame = cv2.resize(frame, (0,0), fx=0.1, fy=0.1) 
 # cv2.imshow("Input", frame)
 # frame = cv2.resize(frame, (background.shape[1], background.shape[0]))
 cols, rows = frame.shape[0], frame.shape[1]
 # print(rows, cols
 
+# New Positions of 4 points on the background, should be changed based on the resolution of the background to vary the perspective
 pts1 = np.float32([[50,50],[rows+50,40],[rows+100,cols+40],[0+50,cols+60]])
+# Size of resized image, and used as the position for 4 points
 pts2 = np.float32([[0,0],[rows,0],[rows,cols],[0,cols]])
 
 M = cv2.getPerspectiveTransform(pts2,pts1)
